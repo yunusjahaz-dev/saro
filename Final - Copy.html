@@ -9,7 +9,7 @@
   <meta property="og:title" content="saro. — Video Editor Portfolio" />
   <meta property="og:description" content="Crafting high-quality video edits with a focus on aesthetics and storytelling." />
   <meta property="og:image" content="https://img.youtube.com/vi/K9FGSfJrjPo/mqdefault.jpg" />
-  <meta property="og:url" content="https://saroshportfolio.com" /> <!-- Replace with your actual domain -->
+  <meta property="og:url" content="https://saroshportfolio.com" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,16 +28,20 @@
               800: '#242b31', 900: '#171b1f'
             }
           },
-          boxShadow: {
-            soft: '0 8px 30px rgba(0,0,0,0.08)'
-          },
+          boxShadow: { soft: '0 8px 30px rgba(0,0,0,0.08)' },
           keyframes: {
             float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
-            fadeInUp: { '0%': { opacity: 0, transform: 'translateY(30px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } }
+            fadeInUp: { '0%': { opacity: 0, transform: 'translateY(20px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            slideIn: { '0%': { opacity: 0, transform: 'translateX(-20px)' }, '100%': { opacity: 1, transform: 'translateX(0)' } },
+            scaleIn: { '0%': { opacity: 0, transform: 'scale(0.95)' }, '100%': { opacity: 1, transform: 'scale(1)' } },
+            menuOpen: { '0%': { opacity: 0, transform: 'translateY(-10px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } }
           },
           animation: {
             float: 'float 4s ease-in-out infinite',
-            fadeInUp: 'fadeInUp 0.8s ease-out forwards'
+            fadeInUp: 'fadeInUp 0.6s ease-out forwards',
+            slideIn: 'slideIn 0.6s ease-out forwards',
+            scaleIn: 'scaleIn 0.5s ease-out forwards',
+            menuOpen: 'menuOpen 0.3s ease-out forwards'
           }
         }
       }
@@ -48,136 +52,39 @@
     html { -webkit-tap-highlight-color: transparent; }
     ::selection { background: #000; color: #fff; }
     .dark ::selection { background: #fff; color: #000; }
-
-    /* Optimized hover effects */
-    button:hover, a[href^="#"]:hover {
-      transform: scale(1.02);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .dark button:hover, .dark a[href^="#"]:hover {
-      box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
-    }
-
-    .group:hover {
-      transform: scale(1.03) translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .dark .group:hover {
-      box-shadow: 0 20px 60px rgba(255, 255, 255, 0.08);
-    }
-
-    header.scrolled {
-      backdrop-filter: blur(20px);
-      background-color: rgba(255, 255, 255, 0.8);
-      border-bottom-color: rgba(0, 0, 0, 0.1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .dark header.scrolled {
-      background-color: rgba(23, 27, 31, 0.8);
-      border-bottom-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .fade-in-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .fade-in-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .fade-in-up.reset {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    section[id] {
-      scroll-margin-top: 80px;
-    }
-
-    /* Video thumbnail styles */
-    .video-thumbnail {
-      background-size: cover;
-      background-position: center;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .video-thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .group:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .dark .group:hover { box-shadow: 0 20px 60px rgba(255, 255, 255, 0.08); }
+    header.scrolled { backdrop-filter: blur(20px); background-color: rgba(255, 255, 255, 0.8); border-bottom-color: rgba(0, 0, 0, 0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .dark header.scrolled { background-color: rgba(23, 27, 31, 0.8); border-bottom-color: rgba(255, 255, 255, 0.1); }
+    .fade-in-up { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+    .slide-in { opacity: 0; transform: translateX(-20px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .slide-in.visible { opacity: 1; transform: translateX(0); }
+    .scale-in { opacity: 0; transform: scale(0.95); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .scale-in.visible { opacity: 1; transform: scale(1); }
+    section[id] { scroll-margin-top: 80px; }
+    .video-thumbnail { background-size: cover; background-position: center; cursor: pointer; position: relative; }
+    .video-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
     .video-thumbnail::after {
-      content: '▶';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3rem;
-      color: white;
-      opacity: 0.8;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 50%;
-      padding: 10px;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.3s ease;
+      content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-size: 1.5rem; color: white; opacity: 0.9; background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%; padding: 6px; width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease;
     }
-
-    .video-thumbnail:hover::after {
-      opacity: 1;
-    }
-
-    /* Progress Bar */
-    .progress-bar {
-      position: sticky;
-      top: 64px;
-      height: 4px;
-      background: rgba(107, 123, 136, 0.2);
-      z-index: 40;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      width: 0;
-      background: #6b7b88;
-      transition: width 0.2s ease-out;
-    }
-
-    .dark .progress-bar-fill {
-      background: #95a4b1;
-    }
-
-    /* Testimonial card hover effects */
-    .testimonial-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .testimonial-card:hover {
-      transform: scale(1.03) translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-    }
-
-    .dark .testimonial-card:hover {
-      box-shadow: 0 20px 60px rgba(255, 255, 255, 0.08);
-    }
-
-    /* Improved contrast for dark mode */
-    .dark .text-base-600 {
-      color: #95a4b1; /* base-400 for better contrast */
-    }
+    .video-thumbnail:hover::after { opacity: 1; }
+    .progress-bar { position: sticky; top: 64px; height: 3px; background: rgba(107, 123, 136, 0.2); z-index: 40; }
+    .progress-bar-fill { height: 100%; width: 0; background: #6b7b88; transition: width 0.15s ease-out; }
+    .dark .progress-bar-fill { background: #95a4b1; }
+    .testimonial-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .testimonial-card:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12); }
+    .dark .testimonial-card:hover { box-shadow: 0 20px 60px rgba(255, 255, 255, 0.08); }
+    .dark .text-base-600 { color: #95a4b1; }
+    #mobileMenuBtn[aria-expanded="true"] svg path:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    #mobileMenuBtn[aria-expanded="true"] svg path:nth-child(2) { opacity: 0; }
+    #mobileMenuBtn[aria-expanded="true"] svg path:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    #mobileMenuBtn svg path { transition: all 0.3s ease; }
+    #mobileNav:not(.hidden) { background: rgba(255, 255, 255, 0.95); }
+    .dark #mobileNav:not(.hidden) { background: rgba(23, 27, 31, 0.95); }
   </style>
 </head>
 <body class="bg-white text-base-900 antialiased dark:bg-base-900 dark:text-base-50">
@@ -199,29 +106,31 @@
   <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-base-900/60 border-b border-black/5 dark:border-white/5">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex items-center justify-between h-16">
-        <a href="#top" class="font-extrabold text-xl tracking-tight hover:opacity-80 transition">saro<span class="text-base-500">.</span></a>
+        <a href="#top" class="font-extrabold text-xl tracking-tight hover:opacity-80 transition scale-in">saro<span class="text-base-500">.</span></a>
         <nav class="hidden sm:flex items-center gap-6 text-sm" id="desktopNav">
-          <a href="#about" class="hover:opacity-70">About</a>
-          <a href="#skills" class="hover:opacity-70">Skills</a>
-          <a href="#projects" class="hover:opacity-70">Projects</a>
-          <a href="#contact" class="hover:opacity-70">Contact</a>
+          <a href="#about" class="hover:opacity-70 scale-in">About</a>
+          <a href="#skills" class="hover:opacity-70 scale-in">Skills</a>
+          <a href="#projects" class="hover:opacity-70 scale-in">Projects</a>
+          <a href="#contact" class="hover:opacity-70 scale-in">Contact</a>
         </nav>
         <div class="flex items-center gap-2">
-          <button id="themeToggle" aria-label="Toggle between light and dark theme" class="rounded-xl border border-black/10 dark:border-white/10 px-3 py-2 text-xs hover:shadow-soft transition">
+          <button id="themeToggle" aria-label="Toggle between light and dark theme" class="rounded-xl border border-black/10 dark:border-white/10 px-3 py-2 text-xs hover:shadow-soft transition scale-in">
             <span id="themeLabel">Dark</span>/<span id="themeLabelOpp" class="opacity-60">Light</span>
           </button>
           <button id="mobileMenuBtn" class="sm:hidden flex items-center" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobileNav">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"></path>
             </svg>
           </button>
         </div>
       </div>
       <nav class="sm:hidden hidden flex-col gap-4 text-sm mt-4 pb-4" id="mobileNav">
-        <a href="#about" class="hover:opacity-70">About</a>
-        <a href="#skills" class="hover:opacity-70">Skills</a>
-        <a href="#projects" class="hover:opacity-70">Projects</a>
-        <a href="#contact" class="hover:opacity-70">Contact</a>
+        <a href="#about" class="hover:opacity-70" style="animation: menuOpen 0.3s ease-out forwards; animation-delay: 0.1s;">About</a>
+        <a href="#skills" class="hover:opacity-70" style="animation: menuOpen 0.3s ease-out forwards; animation-delay: 0.2s;">Skills</a>
+        <a href="#projects" class="hover:opacity-70" style="animation: menuOpen 0.3s ease-out forwards; animation-delay: 0.3s;">Projects</a>
+        <a href="#contact" class="hover:opacity-70" style="animation: menuOpen 0.3s ease-out forwards; animation-delay: 0.4s;">Contact</a>
       </nav>
     </div>
   </header>
@@ -231,25 +140,23 @@
   </div>
 
   <section id="top" class="relative fade-in-up visible">
-    <div class="max-w-6xl mx-auto px-4 py-24 sm:py-28">
-      <div class="grid md:grid-cols-12 gap-8 items-center">
+    <div class="max-w-6xl mx-auto px-4 py-16 sm:py-20">
+      <div class="grid md:grid-cols-12 gap-6 items-center">
         <div class="md:col-span-7">
-          <p class="text-xs uppercase tracking-widest text-base-500 dark:text-base-400">Portfolio</p>
-          <h1 class="mt-2 text-4xl sm:text-5xl font-extrabold leading-tight">
-            Video Editor <span class="opacity-60">•</span> Creator
-          </h1>
-          <p class="mt-4 text-base leading-relaxed text-base-700 dark:text-base-300 max-w-2xl">
+          <p class="text-xs uppercase tracking-widest text-base-500 dark:text-base-400 fade-in-up">Portfolio</p>
+          <h1 class="mt-2 text-4xl sm:text-5xl font-extrabold leading-tight fade-in-up" style="animation-delay: 0.1s;">Video Editor <span class="opacity-60">•</span> Creator</h1>
+          <p class="mt-4 text-base leading-relaxed text-base-700 dark:text-base-300 max-w-2xl fade-in-up" style="animation-delay: 0.2s;">
             I’m <strong>Sarosh</strong> — a passionate video editor with 5+ years of experience crafting clean, aesthetic edits that engage audiences. Specializing in client projects and personal visuals, I blend creativity with technical expertise using tools like Premiere Pro and After Effects.
           </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#projects" class="px-5 py-3 rounded-2xl bg-black text-white dark:bg-white dark:text-black text-sm font-semibold hover:opacity-90">See Projects</a>
-            <a href="#contact" class="px-5 py-3 rounded-2xl border border-black/15 dark:border-white/15 text-sm font-semibold hover:shadow-soft">Contact</a>
+          <div class="mt-6 flex flex-wrap gap-3 fade-in-up" style="animation-delay: 0.3s;">
+            <a href="#projects" class="px-5 py-3 rounded-2xl bg-black text-white dark:bg-white dark:text-black text-sm font-semibold hover:opacity-90 scale-in">See Projects</a>
+            <a href="#contact" class="px-5 py-3 rounded-2xl border border-black/15 dark:border-white/15 text-sm font-semibold hover:shadow-soft scale-in">Contact</a>
           </div>
         </div>
-        <div class="md:col-span-5">
+        <div class="md:col-span-5 fade-in-up" style="animation-delay: 0.4s;">
           <div class="relative aspect-[4/3] rounded-3xl border border-black/10 dark:border-white/10 overflow-hidden shadow-soft">
             <div class="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent dark:from-white/5"></div>
-            <svg class="absolute inset-0 w-full h-full animate-float opacity-60 dark:opacity-40" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="absolute inset-0 w-full h-full animate-float opacity-60 dark:opacity-40" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <defs>
                 <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
                   <stop offset="0%" stop-color="currentColor" stop-opacity="0.7"/>
@@ -261,7 +168,7 @@
               <circle cx="320" cy="220" r="40" stroke="url(#g)" stroke-width="2"/>
               <rect x="40" y="190" width="100" height="60" rx="14" stroke="url(#g)" stroke-width="2"/>
             </svg>
-            <div class="absolute bottom-3 left-3 text-xs px-2 py-1 rounded-lg border border-black/10 dark:border-white/10 bg-white/60 dark:bg-base-900/60 backdrop-blur">
+            <div class="absolute bottom-3 left-3 text-xs px-2 py-1 rounded-lg border border-black/10 dark:border-white/10 bg-white/60 dark:bg-base-900/60 backdrop-blur scale-in">
               preview • saro.
             </div>
           </div>
@@ -271,107 +178,77 @@
   </section>
 
   <section id="about" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">About</h2>
-      <p class="mt-4 text-base leading-relaxed text-base-700 dark:text-base-300 max-w-2xl">
-        I’m Sarosh, a dedicated video editor and creator based in [Your Location]. With a focus on cinematic storytelling, I specialize in creating engaging content for brands, YouTubers, and personal projects. My style is clean and aesthetic, always aiming to elevate the narrative through precise edits, sound design, and visual effects.
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold fade-in-up">About</h2>
+      <p class="mt-3 text-base leading-relaxed text-base-700 dark:text-base-300 max-w-2xl fade-in-up" style="animation-delay: 0.1s;">
+        I’m Sarosh, a dedicated video editor and creator based in <strong>Ap saab ke dil mein</strong>. With a focus on cinematic storytelling, I specialize in creating engaging content for brands, YouTubers, and personal projects. My style is clean and aesthetic, always aiming to elevate the narrative through precise edits, sound design, and visual effects.
       </p>
     </div>
   </section>
 
   <section id="skills" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">Skills</h2>
-      <ul class="mt-4 grid sm:grid-cols-2 gap-4 text-base-700 dark:text-base-300">
-        <li class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          Video Editing (Premiere Pro, After Effects)
-        </li>
-        <li class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          Motion Graphics & Animation
-        </li>
-        <li class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          Sound Design & SFX (Audition)
-        </li>
-        <li class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          Color Grading (DaVinci Resolve)
-        </li>
-        <li class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          Short-Form Content (Reels, TikTok)
-        </li>
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold fade-in-up">Skills</h2>
+      <ul class="mt-3 grid sm:grid-cols-2 gap-3 text-base-700 dark:text-base-300">
+        <li class="flex items-center gap-2 slide-in" style="animation-delay: 0.1s;"><svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Video Editing (Premiere Pro, After Effects)</li>
+        <li class="flex items-center gap-2 slide-in" style="animation-delay: 0.2s;"><svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Motion Graphics & Animation</li>
+        <li class="flex items-center gap-2 slide-in" style="animation-delay: 0.3s;"><svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sound Design & SFX (Audition)</li>
+        <li class="flex items-center gap-2 slide-in" style="animation-delay: 0.4s;"><svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Color Grading (DaVinci Resolve)</li>
+        <li class="flex items-center gap-2 slide-in" style="animation-delay: 0.5s;"><svg class="w-5 h-5 text-base-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Short-Form Content (Reels, TikTok)</li>
       </ul>
     </div>
   </section>
 
   <section id="how-i-work" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">How I Work</h2>
-      <p class="mt-4 text-base leading-relaxed text-base-700 dark:text-base-300 max-w-2xl">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold fade-in-up">How I Work</h2>
+      <p class="mt-3 text-base leading-relaxed text-base-700 dark:text-base-300 max-w-2xl fade-in-up" style="animation-delay: 0.1s;">
         My process starts with understanding the brief and storyboard, followed by rough cuts, client feedback via Frame.io, and final polish with color grading and sound design. I ensure fast turnaround with up to 3 revisions.
       </p>
     </div>
   </section>
 
   <section id="projects" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="flex items-end justify-between gap-6 mb-8">
-        <h2 class="text-2xl font-bold">Projects</h2>
-        <div class="text-xs text-base-500 dark:text-base-400">Client Work • Personal Edits</div>
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <h2 class="text-2xl font-bold fade-in-up">Projects</h2>
+        <div class="text-xs text-base-500 dark:text-base-400 fade-in-up" style="animation-delay: 0.1s;">Client Work • Personal Edits</div>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Project 1 -->
-        <a href="https://www.youtube.com/watch?v=K9FGSfJrjPo&t=18s" target="_blank" class="group block rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 hover:shadow-soft transition">
+        <a href="https://www.youtube.com/watch?v=K9FGSfJrjPo&t=18s" target="_blank" class="group block rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 hover:shadow-soft transition scale-in">
           <div class="aspect-video video-thumbnail relative" data-video-src="https://www.youtube.com/embed/K9FGSfJrjPo?start=18&rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=1" onclick="loadVideo(event, this)" role="button" aria-label="Play video: Quick Caption • SFX & Transitions">
             <img src="https://img.youtube.com/vi/K9FGSfJrjPo/mqdefault.jpg" alt="Quick Caption video thumbnail" loading="lazy" class="w-full h-full object-cover">
           </div>
           <div class="p-4">
             <div class="flex items-center justify-between">
-              <h3 class="font-semibold">Quick Caption • SFX & Transitions</h3>
-              <span class="text-[10px] px-2 py-1 rounded-full border border-black/10 dark:border-white/10">Client</span>
+              <h3 class="font-semibold scale-in" style="animation-delay: 0.1s;">Quick Caption • SFX & Transitions</h3>
+              <span class="text-[10px] px-2 py-1 rounded-full border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.2s;">Client</span>
             </div>
-            <p class="mt-1 text-sm text-base-600 dark:text-base-300">Clean captions with sound design. (2024, Lead Editor, Premiere Pro)</p>
+            <p class="mt-1 text-sm text-base-600 dark:text-base-300 scale-in" style="animation-delay: 0.3s;">Clean captions with sound design. (2024, Lead Editor, Premiere Pro)</p>
           </div>
         </a>
-
-        <!-- Project 2 -->
-        <a href="https://www.youtube.com/watch?v=7cs81UlY3jY" target="_blank" class="group block rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 hover:shadow-soft transition">
+        <a href="https://www.youtube.com/watch?v=7cs81UlY3jY" target="_blank" class="group block rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 hover:shadow-soft transition scale-in">
           <div class="aspect-video video-thumbnail relative" data-video-src="https://www.youtube.com/embed/7cs81UlY3jY?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=1" onclick="loadVideo(event, this)" role="button" aria-label="Play video: Personal Edit">
             <img src="https://img.youtube.com/vi/7cs81UlY3jY/mqdefault.jpg" alt="Personal Edit video thumbnail" loading="lazy" class="w-full h-full object-cover">
           </div>
           <div class="p-4">
             <div class="flex items-center justify-between">
-              <h3 class="font-semibold">Personal Edit</h3>
-              <span class="text-[10px] px-2 py-1 rounded-full border border-black/10 dark:border-white/10">Personal</span>
+              <h3 class="font-semibold scale-in" style="animation-delay: 0.1s;">Personal Edit</h3>
+              <span class="text-[10px] px-2 py-1 rounded-full border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.2s;">Personal</span>
             </div>
-            <p class="mt-1 text-sm text-base-600 dark:text-base-300">Creative cinematic vibe. (2024, Creator, After Effects)</p>
+            <p class="mt-1 text-sm text-base-600 dark:text-base-300 scale-in" style="animation-delay: 0.3s;">Creative cinematic vibe. (2024, Creator, After Effects)</p>
           </div>
         </a>
-
-        <!-- Project 3 -->
-        <a href="https://www.youtube.com/shorts/fnywoTEvUkk" target="_blank" class="group block rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 hover:shadow-soft transition">
+        <a href="https://www.youtube.com/shorts/fnywoTEvUkk" target="_blank" class="group block rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 hover:shadow-soft transition scale-in">
           <div class="aspect-video video-thumbnail relative" data-video-src="https://www.youtube.com/embed/fnywoTEvUkk?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=1" onclick="loadVideo(event, this)" role="button" aria-label="Play video: Short Form Reel">
             <img src="https://img.youtube.com/vi/fnywoTEvUkk/mqdefault.jpg" alt="Short Form Reel video thumbnail" loading="lazy" class="w-full h-full object-cover">
           </div>
           <div class="p-4">
             <div class="flex items-center justify-between">
-              <h3 class="font-semibold">Short Form Reel</h3>
-              <span class="text-[10px] px-2 py-1 rounded-full border border-black/10 dark:border-white/10">Client</span>
+              <h3 class="font-semibold scale-in" style="animation-delay: 0.1s;">Short Form Reel</h3>
+              <span class="text-[10px] px-2 py-1 rounded-full border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.2s;">Client</span>
             </div>
-            <p class="mt-1 text-sm text-base-600 dark:text-base-300">Retention-focused short edit. (2024, Editor, Premiere Pro)</p>
+            <p class="mt-1 text-sm text-base-600 dark:text-base-300 scale-in" style="animation-delay: 0.3s;">Retention-focused short edit. (2024, Editor, Premiere Pro)</p>
           </div>
         </a>
       </div>
@@ -379,70 +256,58 @@
   </section>
 
   <section id="testimonials" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">Testimonials</h2>
-      <div class="mt-4 grid sm:grid-cols-2 gap-6">
-        <div class="testimonial-card p-4 rounded-2xl border border-black/10 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold fade-in-up">Testimonials</h2>
+      <div class="mt-3 grid sm:grid-cols-2 gap-6">
+        <div class="testimonial-card p-4 rounded-2xl border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.1s;">
           <p class="text-sm text-base-700 dark:text-base-300">"Sarosh delivered amazing edits on time—highly recommend!"</p>
           <span class="block mt-2 text-xs opacity-70">Abdullah Fahad, 2024</span>
         </div>
-        <div class="testimonial-card p-4 rounded-2xl border border-black/10 dark:border-white/10">
+        <div class="testimonial-card p-4 rounded-2xl border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.2s;">
           <p class="text-sm text-base-700 dark:text-base-300">"Creative and professional, elevated our video content."</p>
           <span class="block mt-2 text-xs opacity-70">Shayan Khan, 2024</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-2xl font-bold">FAQ</h2>
-      <div class="mt-4 grid gap-4">
-        <div>
-          <h3 class="font-semibold text-sm">What is your turnaround time?</h3>
-          <p class="text-sm text-base-700 dark:text-base-300">Typically 3-5 days for short edits, depending on complexity.</p>
+        <div class="testimonial-card p-4 rounded-2xl border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.3s;">
+          <p class="text-sm text-base-700 dark:text-base-300">"Best experience! His attention to detail and storytelling blew us away."</p>
+          <span class="block mt-2 text-xs opacity-70">Areeba Ali, 2024</span>
         </div>
-        <div>
-          <h3 class="font-semibold text-sm">Do you offer revisions?</h3>
-          <p class="text-sm text-base-700 dark:text-base-300">Yes, up to 3 revisions included in the package.</p>
-        </div>
-        <div>
-          <h3 class="font-semibold text-sm">What tools do you use?</h3>
-          <p class="text-sm text-base-700 dark:text-base-300">Adobe Premiere Pro, After Effects, DaVinci Resolve, and more.</p>
+        <div class="testimonial-card p-4 rounded-2xl border border-black/10 dark:border-white/10 scale-in" style="animation-delay: 0.4s;">
+          <p class="text-sm text-base-700 dark:text-base-300">"Fast delivery + top quality. Will definitely hire again."</p>
+          <span class="block mt-2 text-xs opacity-70">Hamza Malik, 2025</span>
         </div>
       </div>
     </div>
   </section>
 
   <section id="contact" class="border-t border-black/5 dark:border-white/5 fade-in-up">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="grid md:grid-cols-12 gap-10">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="grid md:grid-cols-12 gap-8">
         <div class="md:col-span-4">
-          <h2 class="text-2xl font-bold">Contact</h2>
+          <h2 class="text-2xl font-bold fade-in-up">Contact</h2>
         </div>
         <div class="md:col-span-8">
-          <div class="rounded-3xl border border-black/10 dark:border-white/10 p-6">
-            <p class="text-sm text-base-700 dark:text-base-300">
+          <div class="rounded-3xl border border-black/10 dark:border-white/10 p-6 scale-in">
+            <p class="text-sm text-base-700 dark:text-base-300 fade-in-up" style="animation-delay: 0.1s;">
               Email me at <a href="mailto:saroshalikhan69@gmail.com" class="underline underline-offset-4">saroshalikhan69@gmail.com</a> or message me on <a href="https://www.instagram.com/saro.hmm" target="_blank" class="underline underline-offset-4">Instagram</a>.
             </p>
-            <form class="mt-6 grid gap-4" onsubmit="handleSubmit(event)">
+            <form class="mt-4 grid gap-4" onsubmit="handleSubmit(event)">
               <div class="grid sm:grid-cols-2 gap-4">
-                <label class="text-sm grid gap-1">
+                <label class="text-sm grid gap-1 slide-in" style="animation-delay: 0.2s;">
                   <span>Name</span>
                   <input required type="text" name="name" class="rounded-xl border border-black/15 dark:border-white/15 bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10">
                 </label>
-                <label class="text-sm grid gap-1">
+                <label class="text-sm grid gap-1 slide-in" style="animation-delay: 0.3s;">
                   <span>Email</span>
                   <input required type="email" name="email" class="rounded-xl border border-black/15 dark:border-white/15 bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10">
                 </label>
               </div>
-              <label class="text-sm grid gap-1">
+              <label class="text-sm grid gap-1 slide-in" style="animation-delay: 0.4s;">
                 <span>Message</span>
                 <textarea required name="message" rows="4" class="rounded-xl border border-black/15 dark:border-white/15 bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10"></textarea>
               </label>
               <div class="flex items-center justify-between">
-                <button type="submit" class="px-5 py-3 rounded-2xl bg-black text-white dark:bg-white dark:text-black text-sm font-semibold hover:opacity-90">Send</button>
-                <span id="formMsg" class="text-xs opacity-70"></span>
+                <button type="submit" class="px-5 py-3 rounded-2xl bg-black text-white dark:bg-white dark:text-black text-sm font-semibold hover:opacity-90 scale-in" style="animation-delay: 0.5s;">Send</button>
+                <span id="formMsg" class="text-xs opacity-70 fade-in-up" style="animation-delay: 0.6s;"></span>
               </div>
             </form>
           </div>
@@ -452,13 +317,13 @@
   </section>
 
   <footer class="border-t border-black/5 dark:border-white/5">
-    <div class="max-w-6xl mx-auto px-4 py-10 text-sm flex items-center justify-between">
-      <span>© <span id="year">2025</span> saro.</span>
-      <div class="flex items-center gap-4 opacity-70">
-        <a href="https://www.youtube.com/@zrsaro" target="_blank" aria-label="YouTube" class="hover:scale-125 hover:text-red-600 transition-transform duration-200">YT</a>
-        <a href="https://www.instagram.com/saro.hmm" target="_blank" aria-label="Instagram" class="hover:scale-125 hover:text-pink-600 transition-transform duration-200">IG</a>
-        <a href="https://discord.com/users/zrsaro" target="_blank" aria-label="Discord" class="hover:scale-125 hover:text-indigo-600 transition-transform duration-200">DC</a>
-        <a href="#top" class="hover:scale-125 hover:text-base-500 transition-transform duration-200">Back to top</a>
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm flex items-center justify-between">
+      <span class="fade-in-up">© <span id="year">2025</span> saro.</span>
+      <div class="flex items-center gap-4">
+        <a href="https://www.youtube.com/@zrsaro" target="_blank" aria-label="YouTube" class="hover:scale-125 hover:text-red-600 transition-transform duration-200 scale-in" style="animation-delay: 0.1s;">YT</a>
+        <a href="https://www.instagram.com/saro.hmm" target="_blank" aria-label="Instagram" class="hover:scale-125 hover:text-pink-600 transition-transform duration-200 scale-in" style="animation-delay: 0.2s;">IG</a>
+        <a href="https://discord.com/users/zrsaro" target="_blank" aria-label="Discord" class="hover:scale-125 hover:text-indigo-600 transition-transform duration-200 scale-in" style="animation-delay: 0.3s;">DC</a>
+        <a href="#top" class="hover:scale-125 hover:text-base-500 transition-transform duration-200 scale-in" style="animation-delay: 0.4s;">Back to top</a>
       </div>
     </div>
   </footer>
@@ -497,9 +362,7 @@
         }, 2000);
       } catch (error) {
         msg.textContent = 'Error: Please email directly at saroshalikhan69@gmail.com';
-        setTimeout(() => {
-          msg.textContent = '';
-        }, 5000);
+        setTimeout(() => msg.textContent = '', 5000);
       }
     }
 
@@ -521,52 +384,42 @@
 
     // DOM Content Loaded
     document.addEventListener('DOMContentLoaded', () => {
-      // Fade-in animations
-      const sections = document.querySelectorAll('.fade-in-up');
+      // Animations
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
           }
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-      sections.forEach((section) => observer.observe(section));
+      document.querySelectorAll('.fade-in-up, .slide-in, .scale-in').forEach(el => observer.observe(el));
 
-      // Header scroll effect
+      // Header Scroll Effect
       const header = document.querySelector('header');
       window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        header.classList.toggle('scrolled', scrollTop > 50);
+        header.classList.toggle('scrolled', window.scrollY > 50);
       });
 
-      // Progress bar
+      // Progress Bar
       window.addEventListener('scroll', () => {
         const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.getElementById('progressBarFill').style.width = scrolled + '%';
+        document.getElementById('progressBarFill').style.width = (winScroll / height) * 100 + '%';
       });
 
-      // Navigation smooth scroll
+      // Navigation Smooth Scroll
       document.querySelectorAll('nav a[href^="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
           const targetId = link.getAttribute('href').substring(1);
           const targetSection = document.getElementById(targetId);
           if (targetSection) {
-            targetSection.scrollIntoView();
-            targetSection.classList.remove('visible');
-            targetSection.classList.add('reset');
-            setTimeout(() => {
-              targetSection.classList.remove('reset');
-              targetSection.classList.add('visible');
-            }, 50);
+            targetSection.scrollIntoView({ behavior: 'smooth' });
           }
         });
       });
 
-      // Mobile menu toggle
+      // Mobile Menu Toggle
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileNav = document.getElementById('mobileNav');
       mobileMenuBtn.addEventListener('click', () => {
@@ -575,7 +428,7 @@
         mobileMenuBtn.setAttribute('aria-expanded', !isOpen);
       });
 
-      // Close mobile menu on link click
+      // Close Mobile Menu on Link Click
       document.querySelectorAll('#mobileNav a').forEach(link => {
         link.addEventListener('click', () => {
           mobileNav.classList.add('hidden');
